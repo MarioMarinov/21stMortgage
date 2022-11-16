@@ -6,7 +6,45 @@
         xmlns:local="clr-namespace:_21stMortgageInterviewApplication"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Window.Resources>
+        <local:ValueToColorConverter x:Key="ValueToColorConverter"/>
+        <Style TargetType="Window">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" LastChildFill="True">
+            <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="User Input" Width="100"/>
+            <TextBox VerticalAlignment="Center" Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <UniformGrid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Columns="3">
+            <UniformGrid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Width" Value="90"/>
+                </Style>
+            </UniformGrid.Resources>
+            <Button Command="{Binding ComputeCommand}" CommandParameter="Largest">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Find Largest Value</TextBlock>
+            </Button>
+            <Button Command="{Binding ComputeCommand}" CommandParameter="SumOdd">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Find Sum of Odd Numbers</TextBlock>
+            </Button>
+            <Button Command="{Binding ComputeCommand}" CommandParameter="SumEven">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Find Sum of Even Numbers</TextBlock>
+            </Button>
+        </UniformGrid>
+        <DockPanel Grid.Row="2">
+            <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="Result" Width="100"/>
+            <TextBox VerticalAlignment="Center" IsReadOnly="True" 
+                     Text="{Binding Result}" 
+                     Foreground="{Binding Result, Converter={StaticResource ValueToColorConverter}}"/>
+        </DockPanel>
     </Grid>
 </Window>
